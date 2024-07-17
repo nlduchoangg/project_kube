@@ -1,0 +1,119 @@
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: mongodb-write-pod
+#spec:
+#  containers:
+#    - name: container1
+#      image: localhost:5000/images_test:latest
+#      command: ["sleep", "infinity"]
+#    - name: container2
+#      image: localhost:5000/images_test:latest
+#      command: ["sleep", "infinity"]
+#    - name: container3
+#      image: localhost:5000/images_test:latest
+#      command: ["sleep", "infinity"]
+#  imagePullSecrets:
+#    - name: myregistrysecret  # Tên của Secret bạn đã tạo
+
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: mongodb-write-pod
+#spec:
+#  containers:
+#    - name: container1
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/write_mongo.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts
+#    - name: container2
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/write_mongo.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts
+#    - name: container3
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/write_mongo.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts
+#  imagePullSecrets:
+#    - name: myregistrysecret  # Tên của Secret bạn đã tạo
+#  volumes:
+#    - name: script-volume
+#      hostPath:
+#        path: /home/hoang/project_kub/airflow-docker/scripts  # Đường dẫn tới thư mục chứa write_mongo.py trên host
+
+
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: write-mongo-script
+#data:
+#  h.py: |
+#    # Nội dung của file h.py
+#    print("Hello from h.py")
+#
+#---
+#
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: mongodb-write-pod
+#spec:
+#  containers:
+#    - name: container1
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/h.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts/h.py  # Điều chỉnh mountPath để trỏ đến file cụ thể, không phải thư mục
+#          subPath: h.py  # Xác định subPath là file cụ thể
+#    - name: container2
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/h.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts/h.py  # Điều chỉnh mountPath để trỏ đến file cụ thể, không phải thư mục
+#          subPath: h.py  # Xác định subPath là file cụ thể
+#    - name: container3
+#      image: localhost:5000/images_test:latest
+#      command: ["python3", "/scripts/h.py"]
+#      volumeMounts:
+#        - name: script-volume
+#          mountPath: /scripts/h.py  # Điều chỉnh mountPath để trỏ đến file cụ thể, không phải thư mục
+#          subPath: h.py  # Xác định subPath là file cụ thể
+#  volumes:
+#    - name: script-volume
+#      configMap:
+#        name: write-mongo-script
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb-write-pod
+spec:
+  containers:
+    - name: container1
+      image: localhost:5000/images_test:latest
+      command: ["sleep", "infinity"]
+    - name: container2
+      image: localhost:5000/images_test:latest
+      command: ["sleep", "infinity"]
+    - name: container3
+      image: localhost:5000/images_test:latest
+      command: ["sleep", "infinity"]
+  imagePullSecrets:
+    - name: myregistrysecret
+
+
+
+
+#192.168.49.2  minikube ip
+
+
+

@@ -1,0 +1,41 @@
+[2024-07-16T06:25:16.526+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-07-16T06:25:16.552+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: read_file.read_file_task manual__2024-07-16T06:25:14.663647+00:00 [queued]>
+[2024-07-16T06:25:16.561+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: read_file.read_file_task manual__2024-07-16T06:25:14.663647+00:00 [queued]>
+[2024-07-16T06:25:16.561+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-07-16T06:25:16.575+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): read_file_task> on 2024-07-16 06:25:14.663647+00:00
+[2024-07-16T06:25:16.582+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=2777) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-07-16T06:25:16.584+0000] {standard_task_runner.py:63} INFO - Started process 2779 to run task
+[2024-07-16T06:25:16.585+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'read_file', 'read_file_task', 'manual__2024-07-16T06:25:14.663647+00:00', '--job-id', '333', '--raw', '--subdir', 'DAGS_FOLDER/my_dag.py', '--cfg-path', '/tmp/tmp8oi_wi2t']
+[2024-07-16T06:25:16.589+0000] {standard_task_runner.py:91} INFO - Job 333: Subtask read_file_task
+[2024-07-16T06:25:16.642+0000] {task_command.py:426} INFO - Running <TaskInstance: read_file.read_file_task manual__2024-07-16T06:25:14.663647+00:00 [running]> on host 3d1f449535f3
+[2024-07-16T06:25:16.744+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='read_file' AIRFLOW_CTX_TASK_ID='read_file_task' AIRFLOW_CTX_EXECUTION_DATE='2024-07-16T06:25:14.663647+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-07-16T06:25:14.663647+00:00'
+[2024-07-16T06:25:16.746+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-07-16T06:25:16.746+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-07-16T06:25:16.747+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/my_dag.py", line 12, in read_file
+    with open(filepath, 'r') as file:
+         ^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/hoang/project_kub/airflow-docker/data/data_test.txt'
+[2024-07-16T06:25:16.758+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=read_file, task_id=read_file_task, run_id=manual__2024-07-16T06:25:14.663647+00:00, execution_date=20240716T062514, start_date=20240716T062516, end_date=20240716T062516
+[2024-07-16T06:25:16.773+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 333 for task read_file_task ([Errno 2] No such file or directory: '/home/hoang/project_kub/airflow-docker/data/data_test.txt'; 2779)
+[2024-07-16T06:25:16.799+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-07-16T06:25:16.829+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-07-16T06:25:16.831+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
